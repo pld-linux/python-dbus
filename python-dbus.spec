@@ -8,7 +8,7 @@ Summary:	Python library for using D-BUS
 Summary(pl):	Biblioteka do u¿ywania D-BUS oparta o Pythona
 Name:		python-dbus
 Version:	0.71
-Release:	3
+Release:	4
 License:	AFL v2.1 or GPL v2
 Group:		Libraries
 Source0:	http://dbus.freedesktop.org/releases/%{rname}-%{version}.tar.gz
