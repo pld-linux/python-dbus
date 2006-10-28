@@ -14,15 +14,15 @@ Group:		Libraries
 Source0:	http://dbus.freedesktop.org/releases/%{rname}-%{version}.tar.gz
 # Source0-md5:	ee893bc87b784a8c2285f5041b5e7033
 Patch0:		dbus-python_fixes.patch
-URL:		http://www.freedesktop.org/Software/dbus
+URL:		http://www.freedesktop.org/Software/DBusBindings
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	cpp
 BuildRequires:	dbus-glib-devel >= 0.71
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-BuildRequires:	python-devel >= 2.2
 BuildRequires:	python-Pyrex >= 0.9.3
+BuildRequires:	python-devel >= 2.2
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
