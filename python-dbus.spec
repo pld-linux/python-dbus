@@ -59,6 +59,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+# AFL not in common-licenses, so COPYING included
+%doc AUTHORS COPYING ChangeLog NEWS
 %dir %{py_sitedir}/dbus
 %attr(755,root,root) %{py_sitedir}/dbus/*.so
 %{py_sitedir}/dbus/*.py[co]
