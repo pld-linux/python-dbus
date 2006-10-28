@@ -26,7 +26,7 @@ BuildRequires:	python-Pyrex >= 0.9.3
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
-Requires:	dbus-glib = 0.71
+Requires:	dbus-glib >= 0.71
 Requires:	python-libxml2 >= 1:2.6.26
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
