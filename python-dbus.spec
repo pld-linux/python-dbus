@@ -8,7 +8,7 @@ Summary:	Python library for using D-BUS
 Summary(pl):	Biblioteka do u¿ywania D-BUS oparta o Pythona
 Name:		python-dbus
 Version:	0.71
-Release:	4
+Release:	5
 License:	AFL v2.1 or GPL v2
 Group:		Libraries
 Source0:	http://dbus.freedesktop.org/releases/%{rname}-%{version}.tar.gz
@@ -22,7 +22,7 @@ BuildRequires:	dbus-glib-devel >= 0.71
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	python-Pyrex >= 0.9.3
-BuildRequires:	python-devel >= 2.2
+BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
@@ -64,3 +64,4 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/dbus
 %attr(755,root,root) %{py_sitedir}/dbus/*.so
 %{py_sitedir}/dbus/*.py[co]
+%{py_sitedir}/dbus_python-*.egg-info
