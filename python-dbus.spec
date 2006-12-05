@@ -21,7 +21,7 @@ BuildRequires:	cpp
 BuildRequires:	dbus-glib-devel >= 0.71
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-BuildRequires:	python-Pyrex >= 0.9.3
+BuildRequires:	python-Pyrex >= 0.9.4.2
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	rpm-pythonprov
