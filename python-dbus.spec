@@ -5,7 +5,7 @@
 %define		rname		dbus-python
 #
 Summary:	Python library for using D-BUS
-Summary(pl):	Biblioteka do uøywania D-BUS oparta o Pythona
+Summary(pl.UTF-8):   Biblioteka do u≈ºywania D-BUS oparta o Pythona
 Name:		python-dbus
 Version:	0.71
 Release:	6
@@ -34,7 +34,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 D-BUS add-on library to integrate the standard D-BUS library with
 Python.
 
-%description -l pl
+%description -l pl.UTF-8
 Dodatkowa biblioteka D-BUS do integracji standardowej biblioteki D-BUS
 z Pythonem.
 
