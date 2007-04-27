@@ -17,20 +17,20 @@ License:	AFL v2.1 or GPL v2
 Group:		Libraries
 Source0:	http://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
 # Source0-md5:	2807bc85215c995bd595e01edd9d2077
-#Patch0:		dbus-python_fixes.patch
 URL:		http://www.freedesktop.org/Software/DBusBindings
-BuildRequires:	autoconf >= 2.52
+BuildRequires:	autoconf >= 2.59c
 BuildRequires:	automake
 BuildRequires:	cpp
+BuildRequires:	dbus-devel >= 0.93
 BuildRequires:	dbus-glib-devel >= 0.73
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-BuildRequires:	python-Pyrex >= 0.9.4.2
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
 Requires:	dbus-glib >= 0.73
+Requires:	dbus-libs >= 0.93
 Requires:	python-libxml2 >= 1:2.6.26
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -44,7 +44,6 @@ z Pythonem.
 
 %prep
 %setup -qn %{rname}-%{version}
-#%patch0 -p1
 
 %build
 %configure
@@ -55,8 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-	
-rm -f $RPM_BUILD_ROOT%{py_sitescriptdir}/{,dbus}/{,mainloop}/*.py
+
+%py_postclean
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/_dbus*.la	
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -72,3 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitescriptdir}/dbus/*.py[co]
 %{py_sitescriptdir}/dbus/mainloop/*.py[co]
 #%{py_sitedir}/dbus_python-*.egg-info
+
+# -devel ?
+#%{_includedir}/dbus-1.0/dbus/dbus-python.h
+#%{_pkgconfigdir}/dbus-python.pc
