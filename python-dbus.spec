@@ -1,4 +1,8 @@
 #
+# TODO:
+# - create devel subpackage?
+# - package documentation
+#
 %define		dbus_version	0.91
 %define		expat_version	1:1.95.5
 %define		glib2_version	1:2.12.1
@@ -7,18 +11,18 @@
 Summary:	Python library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona
 Name:		python-dbus
-Version:	0.71
-Release:	6
+Version:	0.80.2
+Release:	0.1
 License:	AFL v2.1 or GPL v2
 Group:		Libraries
-Source0:	http://dbus.freedesktop.org/releases/%{rname}-%{version}.tar.gz
-# Source0-md5:	ee893bc87b784a8c2285f5041b5e7033
-Patch0:		dbus-python_fixes.patch
+Source0:	http://dbus.freedesktop.org/releases/%{rname}/%{rname}-%{version}.tar.gz
+# Source0-md5:	2807bc85215c995bd595e01edd9d2077
+#Patch0:		dbus-python_fixes.patch
 URL:		http://www.freedesktop.org/Software/DBusBindings
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	cpp
-BuildRequires:	dbus-glib-devel >= 0.71
+BuildRequires:	dbus-glib-devel >= 0.73
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	python-Pyrex >= 0.9.4.2
@@ -26,7 +30,7 @@ BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
-Requires:	dbus-glib >= 0.71
+Requires:	dbus-glib >= 0.73
 Requires:	python-libxml2 >= 1:2.6.26
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -40,19 +44,19 @@ z Pythonem.
 
 %prep
 %setup -qn %{rname}-%{version}
-%patch0 -p1
+#%patch0 -p1
 
 %build
-python setup.py build
+%configure
+%{__make}
 	
 %install
 rm -rf $RPM_BUILD_ROOT
 
-python setup.py install \
-	--root=$RPM_BUILD_ROOT \
-	--optimize=2
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 	
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/dbus/*.{py,la,a}
+rm -f $RPM_BUILD_ROOT%{py_sitescriptdir}/{,dbus}/{,mainloop}/*.py
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -61,7 +65,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 # AFL not in common-licenses, so COPYING included
 %doc AUTHORS COPYING ChangeLog NEWS
-%dir %{py_sitedir}/dbus
-%attr(755,root,root) %{py_sitedir}/dbus/*.so
-%{py_sitedir}/dbus/*.py[co]
-%{py_sitedir}/dbus_python-*.egg-info
+%dir %{py_sitescriptdir}/dbus
+%dir %{py_sitescriptdir}/dbus/mainloop
+%attr(755,root,root) %{py_sitedir}/_dbus*.so
+%{py_sitescriptdir}/*.py[co]
+%{py_sitescriptdir}/dbus/*.py[co]
+%{py_sitescriptdir}/dbus/mainloop/*.py[co]
+#%{py_sitedir}/dbus_python-*.egg-info
