@@ -15,7 +15,7 @@ Version:	0.80.2
 Release:	0.1
 License:	AFL v2.1 or GPL v2
 Group:		Libraries
-Source0:	http://dbus.freedesktop.org/releases/%{rname}/%{rname}-%{version}.tar.gz
+Source0:	http://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
 # Source0-md5:	2807bc85215c995bd595e01edd9d2077
 #Patch0:		dbus-python_fixes.patch
 URL:		http://www.freedesktop.org/Software/DBusBindings
