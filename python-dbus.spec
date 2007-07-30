@@ -1,6 +1,5 @@
 #
 # TODO:
-# - create devel subpackage?
 # - package documentation
 #
 %define		dbus_version	0.91
@@ -11,12 +10,12 @@
 Summary:	Python library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona
 Name:		python-dbus
-Version:	0.80.2
-Release:	0.1
+Version:	0.82.1
+Release:	1
 License:	AFL v2.1 or GPL v2
 Group:		Libraries/Python
 Source0:	http://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
-# Source0-md5:	2807bc85215c995bd595e01edd9d2077
+# Source0-md5:	45c725ef7f57fee1de0d1e62e5095002
 URL:		http://www.freedesktop.org/Software/DBusBindings
 BuildRequires:	autoconf >= 2.59c
 BuildRequires:	automake
@@ -46,7 +45,8 @@ z Pythonem.
 %setup -qn %{rname}-%{version}
 
 %build
-%configure
+%configure \
+	CPPFLAGS="-I/usr/include/python2.5"
 %{__make}
 	
 %install
