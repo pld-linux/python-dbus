@@ -10,12 +10,12 @@
 Summary:	Python library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona
 Name:		python-dbus
-Version:	0.82.1
+Version:	0.82.2
 Release:	1
 License:	AFL v2.1 or GPL v2
 Group:		Libraries/Python
 Source0:	http://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
-# Source0-md5:	45c725ef7f57fee1de0d1e62e5095002
+# Source0-md5:	e3b632ed260718301668bc079b6b3172
 URL:		http://www.freedesktop.org/Software/DBusBindings
 BuildRequires:	autoconf >= 2.59c
 BuildRequires:	automake
@@ -41,6 +41,21 @@ Python.
 Dodatkowa biblioteka D-BUS do integracji standardowej biblioteki D-BUS
 z Pythonem.
 
+%package devel
+Summary:	C API for _dbus_bindings module
+Summary(pl.UTF-8):	API C dla modułu _dbus_bindings
+License:	AFL v2.1 or LGPL v2.1
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	dbus-devel >= 0.93
+Requires:	python-devel >= 1:2.5
+
+%description devel
+C API for _dbus_bindings module.
+
+%description devel -l pl.UTF-8
+API C dla modułu _dbus_bindings.
+
 %prep
 %setup -qn %{rname}-%{version}
 
@@ -64,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 # AFL not in common-licenses, so COPYING included
-%doc AUTHORS COPYING ChangeLog NEWS
+%doc AUTHORS COPYING COPYING.AFL-2.1 ChangeLog NEWS
 %dir %{py_sitescriptdir}/dbus
 %dir %{py_sitescriptdir}/dbus/mainloop
 %attr(755,root,root) %{py_sitedir}/_dbus*.so
@@ -73,6 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitescriptdir}/dbus/mainloop/*.py[co]
 #%{py_sitedir}/dbus_python-*.egg-info
 
-# -devel ?
-#%{_includedir}/dbus-1.0/dbus/dbus-python.h
-#%{_pkgconfigdir}/dbus-python.pc
+%files devel
+%defattr(644,root,root,755)
+%{_includedir}/dbus-1.0/dbus/dbus-python.h
+%{_pkgconfigdir}/dbus-python.pc
