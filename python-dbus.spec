@@ -2,20 +2,17 @@
 # TODO:
 # - package documentation
 #
-%define		dbus_version	0.91
-%define		expat_version	1:1.95.5
-%define		glib2_version	1:2.12.1
 %define		rname		dbus-python
 #
 Summary:	Python library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona
 Name:		python-dbus
-Version:	0.82.3
+Version:	0.82.4
 Release:	1
-License:	AFL v2.1 or GPL v2 (some parts relicensed on MIT)
+License:	MIT
 Group:		Libraries/Python
 Source0:	http://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
-# Source0-md5:	6b7626979b63994613a533a2d244c48c
+# Source0-md5:	f491e0372128a6d1178b210a8b1a842f
 URL:		http://www.freedesktop.org/Software/DBusBindings
 BuildRequires:	autoconf >= 2.59c
 BuildRequires:	automake
@@ -78,8 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-# AFL not in common-licenses, so COPYING included
-%doc AUTHORS COPYING COPYING.AFL-2.1 ChangeLog NEWS
+%doc AUTHORS COPYING ChangeLog NEWS README
 %dir %{py_sitescriptdir}/dbus
 %dir %{py_sitescriptdir}/dbus/mainloop
 %attr(755,root,root) %{py_sitedir}/_dbus*.so
