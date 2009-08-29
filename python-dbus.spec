@@ -8,7 +8,7 @@ Summary:	Python library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona
 Name:		python-dbus
 Version:	0.83.0
-Release:	2
+Release:	3
 License:	MIT
 Group:		Libraries/Python
 Source0:	http://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
@@ -63,10 +63,18 @@ API C dla modułu _dbus_bindings.
 %install
 rm -rf $RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT%{py_sitedir}/dbus/mainloop
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+touch $RPM_BUILD_ROOT%{py_sitedir}/dbus/__init__.py
+touch $RPM_BUILD_ROOT%{py_sitedir}/dbus/mainloop/__init__.py
+
+%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 %py_postclean
+
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/_dbus*.la	
 
 %clean
@@ -81,6 +89,10 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitescriptdir}/dbus/*.py[co]
 %{py_sitescriptdir}/dbus/mainloop/*.py[co]
 %attr(755,root,root) %{py_sitedir}/_dbus*.so
+%dir %{py_sitedir}/dbus
+%dir %{py_sitedir}/dbus/mainloop
+%{py_sitedir}/dbus/*.py[co]
+%{py_sitedir}/dbus/mainloop/*.py[co]
 #%{py_sitescriptdir}/dbus_python-*.egg-info
 
 %files devel
