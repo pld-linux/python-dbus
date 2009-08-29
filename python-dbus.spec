@@ -8,7 +8,7 @@ Summary:	Python library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona
 Name:		python-dbus
 Version:	0.83.0
-Release:	3
+Release:	4
 License:	MIT
 Group:		Libraries/Python
 Source0:	http://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
@@ -63,13 +63,11 @@ API C dla modułu _dbus_bindings.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{py_sitedir}/dbus/mainloop
+# use sitedir instead of sitescriptdir to match PyQt4 dbus/mainloop dir
 
 %{__make} install \
+	pythondir=%{py_sitedir} \
 	DESTDIR=$RPM_BUILD_ROOT
-
-touch $RPM_BUILD_ROOT%{py_sitedir}/dbus/__init__.py
-touch $RPM_BUILD_ROOT%{py_sitedir}/dbus/mainloop/__init__.py
 
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
@@ -83,17 +81,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING ChangeLog NEWS README
-%dir %{py_sitescriptdir}/dbus
-%dir %{py_sitescriptdir}/dbus/mainloop
-%{py_sitescriptdir}/*.py[co]
-%{py_sitescriptdir}/dbus/*.py[co]
-%{py_sitescriptdir}/dbus/mainloop/*.py[co]
-%attr(755,root,root) %{py_sitedir}/_dbus*.so
 %dir %{py_sitedir}/dbus
 %dir %{py_sitedir}/dbus/mainloop
+%{py_sitedir}/*.py[co]
 %{py_sitedir}/dbus/*.py[co]
 %{py_sitedir}/dbus/mainloop/*.py[co]
-#%{py_sitescriptdir}/dbus_python-*.egg-info
+%attr(755,root,root) %{py_sitedir}/_dbus*.so
+#%{py_sitedir}/dbus_python-*.egg-info
 
 %files devel
 %defattr(644,root,root,755)
