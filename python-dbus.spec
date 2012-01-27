@@ -17,16 +17,16 @@ URL:		http://www.freedesktop.org/Software/DBusBindings
 BuildRequires:	autoconf >= 2.59c
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	cpp
-BuildRequires:	dbus-devel >= 1.0
+BuildRequires:	dbus-devel >= 1.4
 BuildRequires:	dbus-glib-devel >= 0.73
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-BuildRequires:	python-devel >= 1:2.5
+BuildRequires:	python-devel >= 1:2.6
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
 Requires:	dbus-glib >= 0.73
-Requires:	dbus-libs >= 1.0
+Requires:	dbus-libs >= 1.4
 Requires:	python-libxml2 >= 1:2.6.26
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -44,7 +44,7 @@ Summary(pl.UTF-8):	API C dla modułu _dbus_bindings
 License:	AFL v2.1 or LGPL v2.1
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	dbus-devel >= 0.93
+Requires:	dbus-devel >= 1.4
 Requires:	python-devel >= 1:2.5
 
 %description devel
@@ -73,7 +73,7 @@ rm -rf $RPM_BUILD_ROOT
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 %py_postclean
 
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/_dbus*.la	
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/_dbus*.la	
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -82,11 +82,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING ChangeLog NEWS README
 %dir %{py_sitedir}/dbus
-%dir %{py_sitedir}/dbus/mainloop
 %{py_sitedir}/dbus/*.py[co]
+%dir %{py_sitedir}/dbus/mainloop
 %{py_sitedir}/dbus/mainloop/*.py[co]
-%attr(755,root,root) %{py_sitedir}/_dbus*.so
-#%{py_sitedir}/dbus_python-*.egg-info
+%attr(755,root,root) %{py_sitedir}/_dbus_bindings.so
+%attr(755,root,root) %{py_sitedir}/_dbus_glib_bindings.so
 
 %files devel
 %defattr(644,root,root,755)
