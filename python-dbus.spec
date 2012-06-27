@@ -7,17 +7,17 @@
 Summary:	Python library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona
 Name:		python-dbus
-Version:	1.1.0
+Version:	1.1.1
 Release:	1
 License:	MIT
 Group:		Libraries/Python
 Source0:	http://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
-# Source0-md5:	41a459bbbb5fd92eeebd632623af0bd7
+# Source0-md5:	742c7432ad0f7c3f98291d58fa2e35dc
 URL:		http://www.freedesktop.org/Software/DBusBindings
 BuildRequires:	autoconf >= 2.59c
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	cpp
-BuildRequires:	dbus-devel >= 1.4
+BuildRequires:	dbus-devel >= 1.6
 BuildRequires:	dbus-glib-devel >= 0.73
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
@@ -26,7 +26,7 @@ BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
 Requires:	dbus-glib >= 0.73
-Requires:	dbus-libs >= 1.4
+Requires:	dbus-libs >= 1.6
 Requires:	python-libxml2 >= 1:2.6.26
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -44,7 +44,7 @@ Summary(pl.UTF-8):	API C dla modułu _dbus_bindings
 License:	AFL v2.1 or LGPL v2.1
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	dbus-devel >= 1.4
+Requires:	dbus-devel >= 1.6
 Requires:	python-devel >= 1:2.5
 
 %description devel
