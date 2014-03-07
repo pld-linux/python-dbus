@@ -23,7 +23,7 @@ BuildRequires:	dbus-glib-devel >= 0.73
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 %{?with_python2:BuildRequires:	python-devel >= 1:2.6}
-%{?with_python3:BuildRequires:	python3-devel}
+%{?with_python3:BuildRequires:	python3-devel >= 3.2}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 %pyrequires_eq	python-modules
@@ -45,9 +45,9 @@ Summary:	C API for _dbus_bindings module
 Summary(pl.UTF-8):	API C dla modułu _dbus_bindings
 License:	AFL v2.1 or LGPL v2.1
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
 Requires:	dbus-devel >= 1.6
-Requires:	python-devel >= 1:2.5
+#R: python-dbus = %{version}-%{release}  or  python3-dbus = %{version}-%{release}
+#R: python-devel >= 1:2.5  or  python3-devel
 
 %description devel
 C API for _dbus_bindings module.
@@ -69,7 +69,6 @@ Python 3.
 %description -n python3-dbus -l pl.UTF-8
 Dodatkowa biblioteka D-BUS do integracji standardowej biblioteki D-BUS
 z Pythonem 3.
-
 
 %prep
 %setup -qn %{rname}-%{version}
@@ -151,6 +150,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python3}
 %files -n python3-dbus
 %defattr(644,root,root,755)
+%doc AUTHORS COPYING ChangeLog NEWS README doc/*.txt
 %dir %{py3_sitedir}/dbus
 %{py3_sitedir}/dbus/__pycache__
 %{py3_sitedir}/dbus/*.py
