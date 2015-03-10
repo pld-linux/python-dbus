@@ -14,13 +14,14 @@ License:	MIT
 Group:		Libraries/Python
 Source0:	http://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
 # Source0-md5:	b09cd2d1a057cc432ce944de3fc06bf7
-Patch0:		epidoc.patch
+Patch0:		epydoc.patch
 URL:		http://www.freedesktop.org/Software/DBusBindings
 BuildRequires:	autoconf >= 2.59c
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	cpp
 BuildRequires:	dbus-devel >= 1.6
 BuildRequires:	dbus-glib-devel >= 0.73
+BuildRequires:	epydoc
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 %{?with_python2:BuildRequires:	python-devel >= 1:2.6}
