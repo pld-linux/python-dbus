@@ -8,20 +8,21 @@
 Summary:	Python library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona
 Name:		python-dbus
-Version:	1.2.0
-Release:	9
+Version:	1.2.2
+Release:	1
 License:	MIT
 Group:		Libraries/Python
-Source0:	http://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
-# Source0-md5:	b09cd2d1a057cc432ce944de3fc06bf7
+Source0:	https://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
+# Source0-md5:	d1f2c7ba976d457206caf57d20b5cb5d
 Patch0:		epydoc.patch
-URL:		http://www.freedesktop.org/Software/DBusBindings
+URL:		https://www.freedesktop.org/Software/DBusBindings
 BuildRequires:	autoconf >= 2.59c
-BuildRequires:	automake >= 1:1.9
+BuildRequires:	autoconf-archive
+BuildRequires:	automake >= 1:1.13
 BuildRequires:	cpp
-BuildRequires:	dbus-devel >= 1.6
+BuildRequires:	dbus-devel >= 1.8
 BuildRequires:	dbus-glib-devel >= 0.73
-BuildRequires:	epydoc
+BuildRequires:	epydoc >= 3
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 %{?with_python2:BuildRequires:	python-devel >= 1:2.6}
@@ -30,7 +31,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 %pyrequires_eq	python-modules
 Requires:	dbus-glib >= 0.73
-Requires:	dbus-libs >= 1.6
+Requires:	dbus-libs >= 1.8
 Requires:	python-libxml2 >= 1:2.6.26
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -47,7 +48,7 @@ Summary:	C API for _dbus_bindings module
 Summary(pl.UTF-8):	API C dla modułu _dbus_bindings
 License:	AFL v2.1 or LGPL v2.1
 Group:		Development/Libraries
-Requires:	dbus-devel >= 1.6
+Requires:	dbus-devel >= 1.8
 #R: python-dbus = %{version}-%{release}  or  python3-dbus = %{version}-%{release}
 #R: python-devel >= 1:2.5  or  python3-devel
 
@@ -62,7 +63,7 @@ Summary:	Python 3 library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona 3
 Group:		Libraries/Python
 Requires:	dbus-glib >= 0.73
-Requires:	dbus-libs >= 1.6
+Requires:	dbus-libs >= 1.8
 
 %description -n python3-dbus
 D-BUS add-on library to integrate the standard D-BUS library with
