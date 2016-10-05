@@ -8,14 +8,14 @@
 Summary:	Python library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona
 Name:		python-dbus
-Version:	1.2.2
+Version:	1.2.4
 Release:	1
 License:	MIT
 Group:		Libraries/Python
 Source0:	https://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
-# Source0-md5:	d1f2c7ba976d457206caf57d20b5cb5d
+# Source0-md5:	7372a588c83a7232b4e08159bfd48fe5
 Patch0:		epydoc.patch
-URL:		https://www.freedesktop.org/Software/DBusBindings
+URL:		https://www.freedesktop.org/wiki/Software/DBusBindings
 BuildRequires:	autoconf >= 2.59c
 BuildRequires:	autoconf-archive
 BuildRequires:	automake >= 1:1.13
@@ -26,7 +26,7 @@ BuildRequires:	epydoc >= 3
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 %{?with_python2:BuildRequires:	python-devel >= 1:2.6}
-%{?with_python3:BuildRequires:	python3-devel >= 3.2}
+%{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 %pyrequires_eq	python-modules
