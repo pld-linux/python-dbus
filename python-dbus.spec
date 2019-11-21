@@ -9,12 +9,12 @@
 Summary:	Python library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona
 Name:		python-dbus
-Version:	1.2.8
-Release:	3
+Version:	1.2.12
+Release:	1
 License:	MIT
 Group:		Libraries/Python
 Source0:	https://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
-# Source0-md5:	7379db774c10904f27e7e2743d90fb43
+# Source0-md5:	428b7a9e7e2d154a7ceb3e13536283e4
 URL:		https://www.freedesktop.org/wiki/Software/DBusBindings
 BuildRequires:	autoconf >= 2.59c
 BuildRequires:	autoconf-archive
@@ -32,7 +32,7 @@ BuildRequires:	python-sphinx_rtd_theme
 %endif
 %endif
 %if %{with python3}
-BuildRequires:	python3-devel >= 1:3.4
+BuildRequires:	python3-devel >= 1:3.5
 %if %{with apidocs} && %{without python2}
 BuildRequires:	python3-Sphinx
 BuildRequires:	python3-sphinx_rtd_theme
@@ -62,7 +62,7 @@ Group:		Development/Libraries
 Requires:	dbus-devel >= 1.8
 Requires:	glib2-devel >= 1:2.40
 #R: python-dbus = %{version}-%{release}  or  python3-dbus = %{version}-%{release}
-#R: python-devel >= 1:2.7  or  python3-devel >= 1:3.4
+#R: python-devel >= 1:2.7  or  python3-devel >= 1:3.5
 
 %description devel
 C API for _dbus_bindings module.
@@ -87,7 +87,7 @@ Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona 3
 Group:		Libraries/Python
 Requires:	dbus-libs >= 1.8
 Requires:	glib2 >= 1:2.40
-Requires:	python3-modules >= 1:3.4
+Requires:	python3-modules >= 1:3.5
 
 %description -n python3-dbus
 D-BUS add-on library to integrate the standard D-BUS library with
