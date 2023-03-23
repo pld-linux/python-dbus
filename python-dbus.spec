@@ -6,11 +6,15 @@
 #
 %define		rname		dbus-python
 #
+%if %{without python3}
+%undefine	with_apidocs
+%endif
+
 Summary:	Python library for using D-BUS
 Summary(pl.UTF-8):	Biblioteka do używania D-BUS oparta o Pythona
 Name:		python-dbus
 Version:	1.2.18
-Release:	4
+Release:	5
 License:	MIT
 Group:		Libraries/Python
 Source0:	https://dbus.freedesktop.org/releases/dbus-python/%{rname}-%{version}.tar.gz
@@ -26,14 +30,10 @@ BuildRequires:	libtool
 BuildRequires:	pkgconfig
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.7
-%if %{with apidocs}
-BuildRequires:	python-Sphinx
-BuildRequires:	python-sphinx_rtd_theme
-%endif
 %endif
 %if %{with python3}
 BuildRequires:	python3-devel >= 1:3.5
-%if %{with apidocs} && %{without python2}
+%if %{with apidocs}
 BuildRequires:	python3-Sphinx
 BuildRequires:	python3-sphinx_rtd_theme
 %endif
@@ -100,63 +100,68 @@ z Pythonem 3.
 %prep
 %setup -qn %{rname}-%{version}
 
+%{__sed} -i -e '/configure,$/ s/$/ "CFLAGS=%{rpmcflags}", "CPPFLAGS=%{rpmcppflags}", "LDFLAGS=%{rpmldflags}",/' setup.py
+%{__sed} -i -e '/--disable-maintainer-mode/ s/$/ "--disable-documentation",/' setup.py
+
 %build
 %{__aclocal}
 %{__autoconf}
 %{__automake}
 
-%if %{with python3}
-mkdir py3
-cd py3
-../%configure \
-	PYTHON=%{__python3} \
-	PYTHON_LIBS=-lpython3 \
-	--enable-documentation%{?with_python2:=no}%{!?with_python2:%{!?with_apidocs:=no}}
-%{__make}
-cd ..
+%if %{with python2}
+%py_build
 %endif
 
-%if %{with python2}
-mkdir py2
-cd py2
-../%configure \
-	PYTHON=%{__python} \
-	PYTHON_LIBS=-lpython \
-	--enable-documentation%{!?with_apidocs:=no}
-%{__make}
-cd ..
+%if %{with python3}
+%if %{with apidocs}
+%{__sed} -i -e 's/--disable-documentation/--enable-documentation/' setup.py
+%endif
+
+%py3_build
+
+%if %{with apidocs}
+%{__sed} -i -e 's/--enable-documentation/--disable-documentation/' setup.py
+%endif
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-# use sitedir instead of sitescriptdir to match PyQt4 dbus/mainloop dir
 %if %{with python2}
-%{__make} -C py2 install \
-	pythondir=%{py_sitedir} \
-	DESTDIR=$RPM_BUILD_ROOT
+%py_install
 
-%py_comp $RPM_BUILD_ROOT%{py_sitedir}
-%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+%if %{without python3}
+# missing from py_install
+%{__make} -C build-2/temp.* install-dbusincludeHEADERS install-pkgconfigDATA \
+	DESTDIR=$RPM_BUILD_ROOT \
+	includedir=%{_includedir} \
+	pkgconfigdir=%{_pkgconfigdir}
+%endif
+
 %py_postclean
 
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/_dbus*.la
 %endif
 
 %if %{with python3}
-%{__make} -C py3 install \
-	pythondir=%{py3_sitedir} \
-	DESTDIR=$RPM_BUILD_ROOT
+%py3_install
 
-%py3_comp $RPM_BUILD_ROOT%{py3_sitedir}
-%py3_ocomp $RPM_BUILD_ROOT%{py3_sitedir}
+# missing from py_install
+%{__make} -C build-3/temp.* install-dbusincludeHEADERS install-pkgconfigDATA \
+	DESTDIR=$RPM_BUILD_ROOT \
+	includedir=%{_includedir} \
+	pkgconfigdir=%{_pkgconfigdir}
 
 %{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/_dbus*.la
-%endif
 
 %if %{with apidocs}
-%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/dbus-python/{_sources,objects.inv}
+install -d $RPM_BUILD_ROOT%{_docdir}/dbus-python
+cp -pr build-3/temp.*/doc/_build/{_static,*.html,*.js} $RPM_BUILD_ROOT%{_docdir}/dbus-python
 %endif
+%endif
+
+# py_build uses temporary local prefix, fix to system one
+%{__sed} -i -e 's,^prefix=.*,prefix=%{_prefix},' $RPM_BUILD_ROOT%{_pkgconfigdir}/dbus-python.pc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -171,6 +176,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/dbus/mainloop/*.py[co]
 %attr(755,root,root) %{py_sitedir}/_dbus_bindings.so
 %attr(755,root,root) %{py_sitedir}/_dbus_glib_bindings.so
+%{py_sitedir}/dbus_python-%{version}-py*.egg-info
 %endif
 
 %files devel
@@ -196,4 +202,5 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/dbus/mainloop/*.py
 %attr(755,root,root) %{py3_sitedir}/_dbus_bindings.so
 %attr(755,root,root) %{py3_sitedir}/_dbus_glib_bindings.so
+%{py3_sitedir}/dbus_python-%{version}-py*.egg-info
 %endif
