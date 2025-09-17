@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	python2		# Python 2.x module
-%bcond_without	python3		# Python 3.x module
+%bcond_with	python3		# Python 3.x module
 %bcond_without	apidocs		# Sphinx-based API documentation
 #
 %define		rname		dbus-python
